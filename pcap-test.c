@@ -67,13 +67,15 @@ int main(int argc, char *argv[])
 		if (ip->ip_p != 0x06)
 			continue;
 
-		printf("eth dest mac : %02x %02x %02x %02x %02x %02x\n", eth->ether_dhost[0], eth->ether_dhost[1], eth->ether_dhost[2], eth->ether_dhost[3], eth->ether_dh ost[4], eth->ether_dhost[5]);
+		printf("eth dest mac : %02x:%02x:%02x:%02x:%02x:%02x\n", eth->ether_dhost[0], eth->ether_dhost    [1], eth->ether_dhost[2], eth->ether_dhost[3], eth->ether_dhost[4], eth->ether_dhost[5]);
+ 
+        printf("eth src mac : %02x:%02x:%02x:%02x:%02x:%02x\n", eth->ether_shost[0], eth->ether_shost[    1], eth->ether_shost[2], eth->ether_shost[3], eth->ether_shost[4], eth->ether_shost[5]);
 
-		printf("eth src mac : %02x %02x %02x %02x %02x %02x\n", eth->ether_shost[0], eth->ether_shost[1], eth->ether_shost[2], eth->ether_shost[3], eth->ether_sho st[4], eth->ether_shost[5]);
-
-		printf("ip addr : src %x, dest %x\n", ntohl(ip->ip_src.s_addr), ntohl(ip - > ip_dst.s_addr));
-
-		printf("tcp port : src %d, dest %d\n", ntohs(tcp->th_sport), ntohs(tcp->t h_dport));
+        //printf("ip addr : src %x, dest %x\n", ntohl(ip->ip_src.s_addr), ntohl(ip->ip_dst.s_addr));
+        
+        printf("ip src addr : %s\n", inet_ntoa(ip->ip_src));
+        printf("ip dest addr : %s\n", inet_ntoa(ip->ip_dst));
+        printf("tcp port : src %d, dest %d\n", ntohs(tcp->th_sport), ntohs(tcp->th_dport));
 
 		packet += 20;
 		total_len -= 40;
